@@ -3,7 +3,6 @@ package com.js.photosdk.operate;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -12,8 +11,8 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
 
-public class ImageObject {
-
+public class ImageObject
+{
 	protected Point mPoint = new Point();
 	protected float mRotation;
 	protected float mScale = 1.0f;
@@ -29,11 +28,25 @@ public class ImageObject {
 
 	private Canvas canvas = null;
 
-	public ImageObject(String text) {
+	/**
+	 * 构造方法
+	 */
+	public ImageObject()
+	{
 
 	}
+	public ImageObject(String text)
+	{
 
-	public ImageObject(Bitmap srcBm, Bitmap rotateBm, Bitmap deleteBm) {
+	}
+	/**
+	 * 构造方法
+	 * @param srcBm 源图片
+	 * @param rotateBm 旋转图片
+	 * @param deleteBm	删除图片
+	 */
+	public ImageObject(Bitmap srcBm, Bitmap rotateBm, Bitmap deleteBm)
+	{
 		this.srcBm = Bitmap.createBitmap(srcBm.getWidth(), srcBm.getHeight(),
 				Config.ARGB_8888);
 		canvas = new Canvas(this.srcBm);
@@ -44,8 +57,17 @@ public class ImageObject {
 		paint.setAntiAlias(true);// 去掉边缘锯齿
 		paint.setStrokeWidth(2);// 设置线宽
 	}
-	
-	public ImageObject(Bitmap srcBm,int x, int y, Bitmap rotateBm, Bitmap deleteBm) {
+	/**
+	 * 构造方法
+	 * @param srcBm	源图片
+	 * @param x 图片初始化x坐标
+	 * @param y	图片初始化y坐标
+	 * @param rotateBm	旋转图片
+	 * @param deleteBm 删除图片
+	 */
+	public ImageObject(Bitmap srcBm, int x, int y, Bitmap rotateBm,
+			Bitmap deleteBm)
+	{
 		this.srcBm = Bitmap.createBitmap(srcBm.getWidth(), srcBm.getHeight(),
 				Config.ARGB_8888);
 		canvas = new Canvas(this.srcBm);
@@ -58,58 +80,70 @@ public class ImageObject {
 		paint.setAntiAlias(true);// 去掉边缘锯齿
 		paint.setStrokeWidth(2);// 设置线宽
 	}
-	
 
 	int first = 0;// 判断是否第一次
 
-	public void setPoint(Point mPoint) {
-//		if (mPoint.x < getWidth()) {
-//			Log.e("abc", "abc");
-//			mPoint.x = getWidth();
-//		}
-//
-//		if (mPoint.y < getHeight()) {
-//			mPoint.y = getHeight();
-//		}
-//		this.mPoint = mPoint;
-//		if (first == 0) {
-			setCenter();
-//			first++;
-//		}
+	public void setPoint(Point mPoint)
+	{
+		// if (mPoint.x < getWidth()) {
+		// Log.e("abc", "abc");
+		// mPoint.x = getWidth();
+		// }
+		//
+		// if (mPoint.y < getHeight()) {
+		// mPoint.y = getHeight();
+		// }
+		// this.mPoint = mPoint;
+		// if (first == 0) {
+		setCenter();
+		// first++;
+		// }
 	}
-
-	public int getWidth() {
+	/**
+	 * 获取显示图片的宽
+	 * @return
+	 */
+	public int getWidth()
+	{
 		if (srcBm != null)
 			return srcBm.getWidth();
 		else
 			return 0;
 	}
-
-	public int getHeight() {
+	/**
+	 * 获取显示图片的高
+	 * @return
+	 */
+	public int getHeight()
+	{
 		if (srcBm != null)
 			return srcBm.getHeight();
 		else
 			return 0;
 	}
 
-	public void moveBy(int x, int y) {
+	public void moveBy(int x, int y)
+	{
 		mPoint.x += x;
 		mPoint.y += y;
 		setCenter();
 	}
 
-	public void draw(Canvas canvas) {
+	public void draw(Canvas canvas)
+	{
 		int sc = canvas.save();
-		try {
+		try
+		{
 			canvas.translate(mPoint.x, mPoint.y);
 			canvas.scale((float) mScale, (float) mScale);
 			int sc2 = canvas.save();
 			canvas.rotate((float) mRotation);
 			canvas.scale((flipHorizontal ? -1 : 1), (flipVertical ? -1 : 1));
 			canvas.drawBitmap(srcBm, -getWidth() / 2, -getHeight() / 2, paint);
-//			canvas.drawBitmap(srcBm, -mPoint.x, -mPoint.y, paint);
+			// canvas.drawBitmap(srcBm, -mPoint.x, -mPoint.y, paint);
 			canvas.restoreToCount(sc2);
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 		canvas.restoreToCount(sc);
@@ -122,7 +156,8 @@ public class ImageObject {
 	 * @param pointy
 	 * @return
 	 */
-	public boolean contains(float pointx, float pointy) {
+	public boolean contains(float pointx, float pointy)
+	{
 		Lasso lasso = null;
 		List<PointF> listPoints = new ArrayList<PointF>();
 		listPoints.add(getPointLeftTop());
@@ -138,7 +173,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getPointLeftTop() {
+	protected PointF getPointLeftTop()
+	{
 		PointF pointF = getPointByRotation(centerRotation - 180);
 		return pointF;
 	}
@@ -148,7 +184,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getPointLeftTopInCanvas() {
+	protected PointF getPointLeftTopInCanvas()
+	{
 		PointF pointF = getPointByRotationInCanvas(centerRotation - 180);
 		return pointF;
 	}
@@ -158,7 +195,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getPointRightTop() {
+	protected PointF getPointRightTop()
+	{
 		PointF pointF = getPointByRotation(-centerRotation);
 		return pointF;
 	}
@@ -168,7 +206,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getPointRightTopInCanvas() {
+	protected PointF getPointRightTopInCanvas()
+	{
 		PointF pointF = getPointByRotationInCanvas(-centerRotation);
 		return pointF;
 	}
@@ -178,7 +217,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getPointRightBottom() {
+	protected PointF getPointRightBottom()
+	{
 		PointF pointF = getPointByRotation(centerRotation);
 		return pointF;
 	}
@@ -188,7 +228,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getPointRightBottomInCanvas() {
+	protected PointF getPointRightBottomInCanvas()
+	{
 		PointF pointF = getPointByRotationInCanvas(centerRotation);
 		return pointF;
 	}
@@ -198,7 +239,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getPointLeftBottom() {
+	protected PointF getPointLeftBottom()
+	{
 		PointF pointF = getPointByRotation(-centerRotation + 180);
 		return pointF;
 	}
@@ -208,7 +250,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getPointLeftBottomInCanvas() {
+	protected PointF getPointLeftBottomInCanvas()
+	{
 		PointF pointF = getPointByRotationInCanvas(-centerRotation + 180);
 		return pointF;
 	}
@@ -218,7 +261,8 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	protected PointF getResizeAndRotatePoint() {
+	protected PointF getResizeAndRotatePoint()
+	{
 		PointF pointF = new PointF();
 		double h = getHeight();
 		double w = getWidth();
@@ -241,20 +285,24 @@ public class ImageObject {
 	 *            四角的位置
 	 * @return
 	 */
-	public boolean pointOnCorner(float x, float y, int type) {
+	public boolean pointOnCorner(float x, float y, int type)
+	{
 		PointF point = null;
 		float delX = 0;
 		float delY = 0;
-		if (Constants.LEFTTOP == type) {
+		if (OperateConstants.LEFTTOP == type)
+		{
 			point = getPointLeftTop();
-		} else if (Constants.RIGHTBOTTOM == type) {
+		} else if (OperateConstants.RIGHTBOTTOM == type)
+		{
 			point = getPointRightBottom();
 		}
 		delX = x - (point.x + rotateBm.getWidth() / 2);
 		delY = y - (point.y + rotateBm.getHeight() / 2);
 		float diff = (float) Math.sqrt((delX * delX + delY * delY));
-//		float del = rotateBm.getWidth() / 2;
-		if (Math.abs(diff) <= resizeBoxSize) {
+		// float del = rotateBm.getWidth() / 2;
+		if (Math.abs(diff) <= resizeBoxSize)
+		{
 			return true;
 		}
 		return false;
@@ -266,7 +314,8 @@ public class ImageObject {
 	/**
 	 * 计算中心点的坐标
 	 */
-	protected void setCenter() {
+	protected void setCenter()
+	{
 		double delX = getWidth() * mScale / 2;
 		double delY = getHeight() * mScale / 2;
 		R = (float) Math.sqrt((delX * delX + delY * delY));
@@ -279,7 +328,8 @@ public class ImageObject {
 	 * @param rotation
 	 * @return
 	 */
-	private PointF getPointByRotation(float rotation) {
+	private PointF getPointByRotation(float rotation)
+	{
 		PointF pointF = new PointF();
 		double rot = (mRotation + rotation) * Math.PI / 180;
 		pointF.x = getPoint().x + (float) (R * Math.cos(rot));
@@ -287,7 +337,8 @@ public class ImageObject {
 		return pointF;
 	}
 
-	public PointF getPointByRotationInCanvas(float rotation) {
+	public PointF getPointByRotationInCanvas(float rotation)
+	{
 		PointF pointF = new PointF();
 		double rot = (mRotation + rotation) * Math.PI / 180;
 		pointF.x = (float) (R * Math.cos(rot));
@@ -295,17 +346,11 @@ public class ImageObject {
 		return pointF;
 	}
 
-	// public boolean pointInDelete(int x, int y) {
-	// int wp2 = (int) (((float) getWidth() / 2.0) * mScale);
-	// int hp2 = (int) ((getHeight() / 2.0) * mScale);
-	// return (x >= mPoint.x - wp2) && (x <= mPoint.x - wp2 + resizeBoxSize)
-	// && (y >= mPoint.y - hp2)
-	// && (y <= mPoint.y - hp2 + resizeBoxSize);
-	// }
-
-	public void setScale(float Scale) {
+	public void setScale(float Scale)
+	{
 		if (getWidth() * Scale >= resizeBoxSize / 2
-				&& getHeight() * Scale >= resizeBoxSize / 2) {
+				&& getHeight() * Scale >= resizeBoxSize / 2)
+		{
 			this.mScale = Scale;
 			setCenter();
 		}
@@ -316,12 +361,14 @@ public class ImageObject {
 	 * 
 	 * @param canvas
 	 */
-	public void drawIcon(Canvas canvas) {
+	public void drawIcon(Canvas canvas)
+	{
 		PointF deletePF = getPointLeftTop();
-		canvas.drawBitmap(deleteBm, deletePF.x - deleteBm.getWidth()/2,
-				deletePF.y - deleteBm.getHeight()/2, paint);
+		canvas.drawBitmap(deleteBm, deletePF.x - deleteBm.getWidth() / 2,
+				deletePF.y - deleteBm.getHeight() / 2, paint);
 		PointF rotatePF = getPointRightBottom();
-		canvas.drawBitmap(rotateBm, rotatePF.x - rotateBm.getWidth()/2, rotatePF.y - rotateBm.getHeight()/2, paint);
+		canvas.drawBitmap(rotateBm, rotatePF.x - rotateBm.getWidth() / 2,
+				rotatePF.y - rotateBm.getHeight() / 2, paint);
 	}
 
 	/**
@@ -329,87 +376,105 @@ public class ImageObject {
 	 * 
 	 * @return
 	 */
-	public boolean isSelected() {
+	public boolean isSelected()
+	{
 
 		return mSelected;
 	}
 
-	public void setSelected(boolean Selected) {
+	public void setSelected(boolean Selected)
+	{
 		this.mSelected = Selected;
 	}
 
-	public boolean isFlipVertical() {
+	public boolean isFlipVertical()
+	{
 		return flipVertical;
 	}
 
-	public void setFlipVertical(boolean flipVertical) {
+	public void setFlipVertical(boolean flipVertical)
+	{
 		this.flipVertical = flipVertical;
 	}
 
-	public boolean isFlipHorizontal() {
+	public boolean isFlipHorizontal()
+	{
 		return flipHorizontal;
 	}
 
-	public void setFlipHorizontal(boolean flipHorizontal) {
+	public void setFlipHorizontal(boolean flipHorizontal)
+	{
 		this.flipHorizontal = flipHorizontal;
 	}
 
-	public Bitmap getSrcBm() {
+	public Bitmap getSrcBm()
+	{
 		return srcBm;
 	}
 
-	public void setSrcBm(Bitmap srcBm) {
+	public void setSrcBm(Bitmap srcBm)
+	{
 		this.srcBm = srcBm;
 	}
 
-	public Bitmap getRotateBm() {
+	public Bitmap getRotateBm()
+	{
 		return rotateBm;
 	}
 
-	public void setRotateBm(Bitmap rotateBm) {
+	public void setRotateBm(Bitmap rotateBm)
+	{
 		this.rotateBm = rotateBm;
 	}
 
-	public Bitmap getDeleteBm() {
+	public Bitmap getDeleteBm()
+	{
 		return deleteBm;
 	}
 
-	public void setDeleteBm(Bitmap deleteBm) {
+	public void setDeleteBm(Bitmap deleteBm)
+	{
 		this.deleteBm = deleteBm;
 	}
 
-	public Point getPosition() {
+	public Point getPosition()
+	{
 		return mPoint;
 	}
 
-	public void setPosition(Point Position) {
+	public void setPosition(Point Position)
+	{
 		this.mPoint = Position;
 	}
 
-	public Point getPoint() {
+	public Point getPoint()
+	{
 		return mPoint;
 	}
 
-	public float getRotation() {
+	public float getRotation()
+	{
 		return mRotation;
 	}
 
-	public void setRotation(float Rotation) {
+	public void setRotation(float Rotation)
+	{
 		this.mRotation = Rotation;
 	}
 
-	public float getScale() {
+	public float getScale()
+	{
 		return mScale;
 	}
 
-	public void setTextObject(boolean isTextObject) {
+	public void setTextObject(boolean isTextObject)
+	{
 		this.isTextObject = isTextObject;
 	}
 
-	public boolean isTextObject() {
+	public boolean isTextObject()
+	{
 		return isTextObject;
 	}
-	
-	
 
 }

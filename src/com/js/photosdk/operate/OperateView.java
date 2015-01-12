@@ -28,7 +28,10 @@ public class OperateView extends View {
 		int height = bgBmp.getHeight();
 		mCanvasLimits = new Rect(0, 0, width, height);
 	}
-
+	/**
+	 * 将图片对象添加到View中
+	 * @param imgObj 图片对象
+	 */
 	public void addItem(ImageObject imgObj) {
 		if (imgObj == null) {
 			return;
@@ -43,6 +46,9 @@ public class OperateView extends View {
 		invalidate();
 	}
 
+	/**
+	 * 画出容器内所有的图像 
+	 */
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
@@ -69,6 +75,9 @@ public class OperateView extends View {
 		invalidate();
 	}
 
+	/**
+	 * 根据触控点重绘View
+	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getPointerCount() == 1) {
@@ -84,7 +93,6 @@ public class OperateView extends View {
 
 	private boolean mMovedSinceDown = false;
 	private boolean mResizeAndRotateSinceDown = false;
-	// private boolean mResizeAndDeleteSinceDown = false;
 	private float mStartDistance = 0.0f;
 	private float mStartScale = 0.0f;
 	private float mStartRot = 0.0f;
@@ -97,6 +105,10 @@ public class OperateView extends View {
 	float diff;
 	float rot;
 
+	/**
+	 * 多点触控操作
+	 * @param event
+	 */
 	private void handleMultiTouchManipulateEvent(MotionEvent event) {
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_POINTER_UP:
@@ -150,7 +162,10 @@ public class OperateView extends View {
 			break;
 		}
 	}
-
+	/**
+	 * 获取选中的对象ImageObject
+	 * @return
+	 */
 	private ImageObject getSelected() {
 		for (ImageObject ibj : imgLists) {
 			if (ibj.isSelected()) {
@@ -161,7 +176,10 @@ public class OperateView extends View {
 	}
 
 	private long selectTime = 0;
-
+	/**
+	 * 单点触控操作
+	 * @param event
+	 */
 	private void handleSingleTouchManipulateEvent(MotionEvent event) {
 
 		long currentTime = 0;
@@ -176,19 +194,15 @@ public class OperateView extends View {
 				ImageObject io = imgLists.get(i);
 				if (io.contains(event.getX(), event.getY())
 						|| io.pointOnCorner(event.getX(), event.getY(),
-								Constants.RIGHTBOTTOM)
+								OperateConstants.RIGHTBOTTOM)
 						|| io.pointOnCorner(event.getX(), event.getY(),
-								Constants.LEFTTOP)) {
-					// 弹出对话框
+								OperateConstants.LEFTTOP)) {
 
 					io.setSelected(true);
 					imgLists.remove(i);
-
 					imgLists.add(io);
 					selectedId = imgLists.size() - 1;
-
 					currentTime = System.currentTimeMillis();
-
 					if (currentTime - selectTime < 300) {
 						if (myListener != null) {
 							if(getSelected().isTextObject()){
@@ -197,7 +211,6 @@ public class OperateView extends View {
  			            }
 					}
 					selectTime = currentTime;
-
 					break;
 				}
 			}
@@ -206,9 +219,9 @@ public class OperateView extends View {
 					ImageObject io = imgLists.get(i);
 					if (io.contains(event.getX(), event.getY())
 							|| io.pointOnCorner(event.getX(), event.getY(),
-									Constants.RIGHTBOTTOM)
+									OperateConstants.RIGHTBOTTOM)
 							|| io.pointOnCorner(event.getX(), event.getY(),
-									Constants.LEFTTOP)) {
+									OperateConstants.LEFTTOP)) {
 						io.setSelected(true);
 						imgLists.remove(i);
 						imgLists.add(io);
@@ -227,10 +240,10 @@ public class OperateView extends View {
 			ImageObject io = getSelected();
 			if (io != null) {
 				if (io.pointOnCorner(event.getX(), event.getY(),
-						Constants.LEFTTOP)) {
+						OperateConstants.LEFTTOP)) {
 					imgLists.remove(io);
 				} else if (io.pointOnCorner(event.getX(), event.getY(),
-						Constants.RIGHTBOTTOM)) {
+						OperateConstants.RIGHTBOTTOM)) {
 					mResizeAndRotateSinceDown = true;
 					float x = event.getX();
 					float y = event.getY();
@@ -304,7 +317,10 @@ public class OperateView extends View {
 		cancelLongPress();
 
 	}
-
+	/**
+	 * 循环画图像
+	 * @param canvas
+	 */
 	private void drawImages(Canvas canvas) {
 		for (ImageObject ad : imgLists) {
 			if (ad != null) {
@@ -313,7 +329,9 @@ public class OperateView extends View {
 		}
 	}
 
-
+	/**
+	 * 向外部提供双击监听事件（双击弹出自定义对话框编辑文字）
+	 */
     MyListener myListener;
 
     public void setOnListener(MyListener myListener) {

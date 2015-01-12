@@ -111,7 +111,7 @@ public class OperateUtils {
 		Bitmap deleteBm = BitmapFactory.decodeResource(activity.getResources(),
 				R.drawable.delete);
 
-		textObj = new TextObject(activity, text, 450,800, rotateBm, deleteBm);
+		textObj = new TextObject(activity, text, 150,150, rotateBm, deleteBm);
 		textObj.setTextObject(true);
 		return textObj;
 	}

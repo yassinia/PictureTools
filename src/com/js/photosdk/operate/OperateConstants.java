@@ -1,6 +1,6 @@
 package com.js.photosdk.operate;
 
-public class Constants {
+public class OperateConstants {
 	/**
 	 * 本地字体名称
 	 */

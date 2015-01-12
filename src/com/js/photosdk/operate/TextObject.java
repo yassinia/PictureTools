@@ -7,9 +7,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
-public class TextObject extends ImageObject {
+public class TextObject extends ImageObject
+{
 
-	private int textSize = 52;
+	private int textSize = 90;
 	private int color = Color.BLACK;
 	private String typeface;
 	private String text;
@@ -21,15 +22,23 @@ public class TextObject extends ImageObject {
 
 	/**
 	 * 构造方法
-	 * @param context 上下文
-	 * @param text	输入的文字
-	 * @param x	位置x坐标
-	 * @param y	位置y坐标
-	 * @param rotateBm	旋转按钮的图片
-	 * @param deleteBm	删除按钮的图片
+	 * 
+	 * @param context
+	 *            上下文
+	 * @param text
+	 *            输入的文字
+	 * @param x
+	 *            位置x坐标
+	 * @param y
+	 *            位置y坐标
+	 * @param rotateBm
+	 *            旋转按钮的图片
+	 * @param deleteBm
+	 *            删除按钮的图片
 	 */
 	public TextObject(Context context, String text, int x, int y,
-			Bitmap rotateBm, Bitmap deleteBm) {
+			Bitmap rotateBm, Bitmap deleteBm)
+	{
 		super(text);
 		this.context = context;
 		this.text = text;
@@ -39,11 +48,16 @@ public class TextObject extends ImageObject {
 		this.deleteBm = deleteBm;
 		regenerateBitmap();
 	}
-	
+
+	public TextObject()
+	{
+	}
+
 	/**
 	 * 绘画出字体
 	 */
-	public void regenerateBitmap() {
+	public void regenerateBitmap()
+	{
 		paint.setAntiAlias(true);
 		paint.setTextSize(textSize);
 		paint.setTypeface(getTypefaceObj());
@@ -54,7 +68,8 @@ public class TextObject extends ImageObject {
 		String lines[] = text.split("\n");
 
 		int textWidth = 0;
-		for (String str : lines) {
+		for (String str : lines)
+		{
 			int temp = (int) paint.measureText(str);
 			if (temp > textWidth)
 				textWidth = temp;
@@ -67,7 +82,8 @@ public class TextObject extends ImageObject {
 				Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(srcBm);
 		canvas.drawARGB(0, 0, 0, 0);
-		for (int i = 1; i <= lines.length; i++) {
+		for (int i = 1; i <= lines.length; i++)
+		{
 			canvas.drawText(lines[i - 1], 0, i * textSize, paint);
 		}
 		setCenter();
@@ -79,13 +95,16 @@ public class TextObject extends ImageObject {
 	 * @return Typeface 默认系统字体，设置属性后变换字体 目前支持本地两种字体 by3500.ttf 、 bygf3500.ttf
 	 */
 
-	public Typeface getTypefaceObj() {
+	public Typeface getTypefaceObj()
+	{
 		Typeface tmptf = Typeface.DEFAULT;
-		if (typeface != null) {
-			if (Constants.FACE_BY.equals(typeface)
-					|| Constants.FACE_BYGF.equals(typeface)) {
+		if (typeface != null)
+		{
+			if (OperateConstants.FACE_BY.equals(typeface)
+					|| OperateConstants.FACE_BYGF.equals(typeface))
+			{
 				tmptf = Typeface.createFromAsset(context.getAssets(), "fonts/"
-						+ typeface + ".TTF");
+						+ typeface + ".ttf");
 			}
 		}
 		if (bold && !italic)
@@ -100,74 +119,91 @@ public class TextObject extends ImageObject {
 	/**
 	 * 设置属性值后，提交方法
 	 */
-	public void commit() {
+	public void commit()
+	{
 		regenerateBitmap();
 	}
 
 	/**
 	 * 公共的getter和setter方法
 	 */
-	public int getTextSize() {
+	public int getTextSize()
+	{
 		return textSize;
 	}
 
-	public void setTextSize(int textSize) {
+	public void setTextSize(int textSize)
+	{
 		this.textSize = textSize;
 	}
 
-	public int getColor() {
+	public int getColor()
+	{
 		return color;
 	}
 
-	public void setColor(int color) {
+	public void setColor(int color)
+	{
 		this.color = color;
 	}
 
-	public String getTypeface() {
+	public String getTypeface()
+	{
 		return typeface;
 	}
 
-	public void setTypeface(String typeface) {
+	public void setTypeface(String typeface)
+	{
 		this.typeface = typeface;
 	}
 
-	public boolean isBold() {
+	public boolean isBold()
+	{
 		return bold;
 	}
 
-	public void setBold(boolean bold) {
+	public void setBold(boolean bold)
+	{
 		this.bold = bold;
 	}
 
-	public boolean isItalic() {
+	public boolean isItalic()
+	{
 		return italic;
 	}
 
-	public void setItalic(boolean italic) {
+	public void setItalic(boolean italic)
+	{
 		this.italic = italic;
 	}
 
-	public int getX() {
+	public int getX()
+	{
 		return mPoint.x;
 	}
 
-	public void setX(int x) {
+	public void setX(int x)
+	{
 		this.mPoint.x = x;
 	}
 
-	public int getY() {
+	public int getY()
+	{
 		return mPoint.y;
 	}
 
-	public void setY(int y) {
+	public void setY(int y)
+	{
 		this.mPoint.y = y;
 	}
 
-	public String getText() {
+	public String getText()
+	{
 		return text;
 	}
 
-	public void setText(String text) {
+	public void setText(String text)
+	{
 		this.text = text;
 	}
 
