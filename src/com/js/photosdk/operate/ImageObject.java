@@ -140,7 +140,6 @@ public class ImageObject
 			canvas.rotate((float) mRotation);
 			canvas.scale((flipHorizontal ? -1 : 1), (flipVertical ? -1 : 1));
 			canvas.drawBitmap(srcBm, -getWidth() / 2, -getHeight() / 2, paint);
-			// canvas.drawBitmap(srcBm, -mPoint.x, -mPoint.y, paint);
 			canvas.restoreToCount(sc2);
 		} catch (Exception e)
 		{

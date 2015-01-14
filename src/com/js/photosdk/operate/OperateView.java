@@ -20,10 +20,12 @@ public class OperateView extends View
 	Bitmap bgBmp;
 	Paint paint = new Paint();
 	private Context mContext;
-	private boolean isMultiAdd;//true 代表可以添加多个水印图片（或文字），false 代表只可添加单个水印图片（或文字）
+	private boolean isMultiAdd;// true 代表可以添加多个水印图片（或文字），false 代表只可添加单个水印图片（或文字）
 	/**
 	 * 设置是否可以添加多个图片或者文字对象
-	 * @param isMultiAdd true 代表可以添加多个水印图片（或文字），false 代表只可添加单个水印图片（或文字）
+	 * 
+	 * @param isMultiAdd
+	 *            true 代表可以添加多个水印图片（或文字），false 代表只可添加单个水印图片（或文字）
 	 */
 	public void setMultiAdd(boolean isMultiAdd)
 	{
@@ -45,18 +47,24 @@ public class OperateView extends View
 	 * @param imgObj
 	 *            图片对象
 	 */
-	public void addItem(ImageObject imgObj) {
-		if(!isMultiAdd){
-			if(imgLists != null){
+	public void addItem(ImageObject imgObj)
+	{
+		if (!isMultiAdd)
+		{
+			if (imgLists != null)
+			{
 				imgLists.clear();
 			}
 		}
-		if (imgObj == null) {
+		if (imgObj == null)
+		{
 			return;
 		}
 		imgObj.setSelected(true);
+		imgObj.setScale(0.4f);
 		ImageObject img = null;
-		for (int i = 0; i < imgLists.size(); i++) {
+		for (int i = 0; i < imgLists.size(); i++)
+		{
 			img = imgLists.get(i);
 			img.setSelected(false);
 		}
@@ -77,13 +85,9 @@ public class OperateView extends View
 		canvas.restoreToCount(sc);
 		for (ImageObject ad : imgLists)
 		{
-			if (ad != null)
+			if (ad != null && ad.isSelected())
 			{
-				if (ad.isSelected())
-				{
-					ad.drawIcon(canvas);
-					break;
-				}
+				ad.drawIcon(canvas);
 			}
 		}
 	}
@@ -176,7 +180,6 @@ public class OperateView extends View
 				float newscale = mStartScale * scale;
 				rot = (float) Math.toDegrees(Math.atan2(delX, delY));
 				float rotdiff = mPrevRot - rot;
-				Log.e("mPrevRot", "mPrevRot=" + mPrevRot + ";;rot" + rot);
 				for (ImageObject io : imgLists)
 				{
 					if (io.isSelected() && newscale < 10.0f && newscale > 0.1f)
