@@ -219,6 +219,14 @@ public class OperateUtils
 	 * 
 	 * @param srcBmp
 	 *            被操作的图片
+	 * @param operateView
+	 *            容器View对象
+	 * @param quadrant
+	 *            需要图片显示的区域 （1、左上方，2、右上方，3、左下方，4、右下方，5、中心）
+	 * @param x
+	 *            离边界x坐标
+	 * @param y
+	 *            离边界y坐标
 	 * @return
 	 */
 
