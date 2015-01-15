@@ -9,23 +9,26 @@ import android.util.Log;
  * 判断某个点是否在多边形区域内
  * 
  */
-public class Lasso {
+public class Lasso
+{
 	private float[] mPolyX, mPolyY;
 	private int mPolySize;
 
 	/**
-	 * constructor
+	 * 构造方法
 	 * 
-	 * @param pointFs
-	 *            points list of the lasso
+	 * @param 集合
+	 *            
 	 */
-	public Lasso(List<PointF> pointFs) {
+	public Lasso(List<PointF> pointFs)
+	{
 		this.mPolySize = pointFs.size();
 
 		this.mPolyX = new float[this.mPolySize];
 		this.mPolyY = new float[this.mPolySize];
 
-		for (int i = 0; i < this.mPolySize; i++) {
+		for (int i = 0; i < this.mPolySize; i++)
+		{
 			this.mPolyX[i] = pointFs.get(i).x;
 			this.mPolyY[i] = pointFs.get(i).y;
 		}
@@ -34,22 +37,26 @@ public class Lasso {
 	}
 
 	/**
-	 * check if this polygon contains the point.
+	 * 判断多边形是否包含点
 	 * 
 	 * @param x
-	 *            point coordinate X
+	 *            X坐标
 	 * @param y
-	 *            point coordinate Y
-	 * @return point is in polygon flag
+	 *            Y坐标
+	 * @return true 
 	 */
-	public boolean contains(float x, float y) {
+	public boolean contains(float x, float y)
+	{
 		boolean result = false;
 
-		for (int i = 0, j = mPolySize - 1; i < mPolySize; j = i++) {
+		for (int i = 0, j = mPolySize - 1; i < mPolySize; j = i++)
+		{
 			if ((mPolyY[i] < y && mPolyY[j] >= y)
-					|| (mPolyY[j] < y && mPolyY[i] >= y)) {
+					|| (mPolyY[j] < y && mPolyY[i] >= y))
+			{
 				if (mPolyX[i] + (y - mPolyY[i]) / (mPolyY[j] - mPolyY[i])
-						* (mPolyX[j] - mPolyX[i]) < x) {
+						* (mPolyX[j] - mPolyX[i]) < x)
+				{
 					result = !result;
 				}
 			}
