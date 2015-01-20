@@ -378,7 +378,7 @@ public class GPUImage {
      *
      * @param runnable The runnable to be run on the OpenGL thread.
      */
-    void runOnGLThread(Runnable runnable) {
+    public void runOnGLThread(Runnable runnable) {
         mRenderer.runOnDrawEnd(runnable);
     }
 
