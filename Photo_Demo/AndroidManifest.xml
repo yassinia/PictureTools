@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
 
     <application
         android:allowBackup="true"
@@ -33,53 +33,40 @@
         <activity
             android:name="com.jarlen.picturetest.MosaicActivity"
             android:screenOrientation="portrait" />
-        
         <activity
             android:name="com.jarlen.picturetest.ImageFilterActivity"
             android:screenOrientation="portrait" />
-        
         <activity
             android:name="com.jarlen.picturetest.ImageCropActivity"
             android:screenOrientation="portrait" />
-        
-         <activity
+        <activity
             android:name="com.jarlen.picturetest.WarpActivity"
             android:screenOrientation="portrait" />
-         
-         <activity
+        <activity
             android:name="com.jarlen.picturetest.EnhanceActivity"
             android:screenOrientation="portrait" />
-         
-          <activity
+        <activity
             android:name="com.jarlen.picturetest.AddWatermarkActivity"
             android:screenOrientation="portrait" />
-          <activity
+        <activity
             android:name="com.jarlen.picturetest.AddTextActivity"
             android:screenOrientation="portrait" />
-          
-          <activity
+        <activity
             android:name="com.jarlen.picturetest.PreviewActivity"
             android:screenOrientation="portrait" />
-          
-          <activity
+        <activity
             android:name="com.jarlen.picturetest.RevolveActivity"
             android:screenOrientation="portrait" />
-         
-         
-         
-         
-         
-         <!-- 测试 -->
-         
-          <activity
+
+        <!-- 测试 -->
+
+        <activity
             android:name="com.jarlen.temptest.ImgeditActivity"
             android:screenOrientation="portrait" />
-          
-           <activity
+        <activity
             android:name="com.jarlen.temptest.PhotoRotate"
             android:screenOrientation="portrait" />
-           
-           <activity
+        <activity
             android:name="com.jarlen.temptest.FrameFilterActivity"
             android:screenOrientation="portrait" />
     </application>
